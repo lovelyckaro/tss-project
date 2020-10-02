@@ -17,3 +17,32 @@ if not(isequal(transpose(find(trains(1,:))), cell2mat(firing_samples(1))))
     disp("indices not equal");
 end
 
+realtrains = zeros(8, 200000);
+for row = 1:8 % For each train
+    for startindex = cell2mat(firing_samples(row)) % for each firing
+        for offset = 1:100 % Insert action potentials for that firing
+            realtrains(row, startindex + offset) = action_potentials(row, offset);
+        end
+    end
+end
+
+% Plotting the first action train
+fullTime = linspace(0, 20, 200000);
+
+tiledlayout(2,1);
+
+axFull1 = nexttile;
+
+plot(axFull1, fullTime, realtrains(1,:))
+ylim(axFull1, [-120 120])
+ylabel(axFull1, "A.U")
+xlabel(axFull1, "Time, (s)")
+title(axFull1, "0s to 20s ")
+
+axTenToTenHalf1 = nexttile;
+tenToTenHalf = linspace(10, 10.5, 5000);
+plot(tenToTenHalf, realtrains(1, 100001:105000))
+ylim(axTenToTenHalf1, [-120 120])
+ylabel(axTenToTenHalf1, "A.U")
+xlabel(axTenToTenHalf1, "Time, (s)")
+title(axTenToTenHalf1, "10s to 10.5s")
