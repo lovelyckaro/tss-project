@@ -29,20 +29,42 @@ end
 % Plotting the first action train
 fullTime = linspace(0, 20, 200000);
 
-tiledlayout(2,1);
+tiledlayout(2,2);
 
 axFull1 = nexttile;
 
 plot(axFull1, fullTime, realtrains(1,:))
-ylim(axFull1, [-120 120])
+ylim(axFull1, [-200 200])
 ylabel(axFull1, "A.U")
 xlabel(axFull1, "Time, (s)")
-title(axFull1, "0s to 20s ")
+title(axFull1, "Action train 1: 0s to 20s ")
 
 axTenToTenHalf1 = nexttile;
 tenToTenHalf = linspace(10, 10.5, 5000);
 plot(tenToTenHalf, realtrains(1, 100001:105000))
-ylim(axTenToTenHalf1, [-120 120])
+ylim(axTenToTenHalf1, [-200 200])
 ylabel(axTenToTenHalf1, "A.U")
 xlabel(axTenToTenHalf1, "Time, (s)")
-title(axTenToTenHalf1, "10s to 10.5s")
+title(axTenToTenHalf1, "Action train 1: 10s to 10.5s")
+
+emg = zeros(1, 200000);
+
+for row = 1:8
+    for column = 1:200000
+        emg(column) = emg(column) +  realtrains(row, column);
+    end
+end
+
+axEmg = nexttile;
+plot(fullTime, emg(:))
+ylim(axEmg, [-200 200])
+ylabel(axEmg, "A.U")
+xlabel(axEmg, "Time, (s)")
+title(axEmg, "EMG: 0s to 20s")
+
+axEmg2 = nexttile;
+plot(tenToTenHalf, emg(1, 100001:105000))
+ylim(axEmg2, [-200 200])
+ylabel(axEmg2, "A.U")
+xlabel(axEmg2, "Time, (s)")
+title(axEmg2, "EMG: 10s to 10.5s")
