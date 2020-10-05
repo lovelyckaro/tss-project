@@ -83,7 +83,9 @@ for row = 1:8
     filtered(row,:) = conv(trains(row,:), hann(10000), 'same');
     plot(filteredAx, fullTime, filtered(row, :))
 end
-
+ylabel(filteredAx, "A.U")
+xlabel(filteredAx, "Time, (s)")
+title(filteredAx, "Binary vectors, filtered using Hanning window")
 
 
 wvtool(filtered(1,:), filtered(2,:), filtered(3,:), filtered(4,:), filtered(5,:), filtered(6,:), filtered(7,:), filtered(8,:))
