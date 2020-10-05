@@ -3,7 +3,7 @@ firing_samples = load("firing_samples.mat").firing_samples;
 % Signal duration is 20 s, and sampling freq. is 10'000Hz
 % We will need 200'000 values in our trains
 % trains is a matrix where each row is a action train
-trains = zeros(8, 2000000);
+trains = zeros(8, 200000);
 for row = 1:8
     for column = cell2mat(firing_samples(row))
         trains(row, column) = 1;
@@ -29,7 +29,7 @@ end
 % Plotting the first action train
 fullTime = linspace(0, 20, 200000);
 
-tiledlayout(2,2);
+tiledlayout(3,2);
 
 axFull1 = nexttile;
 
@@ -68,3 +68,24 @@ ylim(axEmg2, [-200 200])
 ylabel(axEmg2, "A.U")
 xlabel(axEmg2, "Time, (s)")
 title(axEmg2, "EMG: 10s to 10.5s")
+
+
+% QUESTION 2
+
+
+% Time to filter
+
+filtered = zeros(8, 200000);
+filteredAx = nexttile;
+hold on
+
+for row = 1:8
+    filtered(row,:) = conv(trains(row,:), hann(10000), 'same');
+    plot(filteredAx, fullTime, filtered(row, :))
+end
+
+
+
+wvtool(filtered(1,:), filtered(2,:), filtered(3,:), filtered(4,:), filtered(5,:), filtered(6,:), filtered(7,:), filtered(8,:))
+
+hold off
