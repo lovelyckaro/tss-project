@@ -32,9 +32,10 @@ xlabel(axFull1, "Time, (s)")
 title(axFull1, "Action train 1: 0s to 20s ")
 
 axTenToTenHalf1 = nexttile;
-tenToTenHalf = linspace(10, 10.5, 5000);
-plot(tenToTenHalf, realtrains(1, 100001:105000))
+%tenToTenHalf = linspace(10, 10.5, 5000);
+plot(fullTime, realtrains(1, :))
 ylim(axTenToTenHalf1, [-200 200])
+xlim(axTenToTenHalf1, [10 10.5])
 ylabel(axTenToTenHalf1, "A.U")
 xlabel(axTenToTenHalf1, "Time, (s)")
 title(axTenToTenHalf1, "Action train 1: 10s to 10.5s")
@@ -53,8 +54,9 @@ xlabel(axEmg, "Time, (s)")
 title(axEmg, "EMG: 0s to 20s")
 
 axEmg2 = nexttile;
-plot(tenToTenHalf, emg(1, 100001:105000))
+plot(fullTime, emg(1, :))
 ylim(axEmg2, [-200 200])
+xlim(axEmg2, [10 10.5])
 ylabel(axEmg2, "A.U")
 xlabel(axEmg2, "Time, (s)")
 title(axEmg2, "EMG: 10s to 10.5s")
