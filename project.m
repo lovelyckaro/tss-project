@@ -10,7 +10,7 @@ end
 
 realtrains = zeros(8, 200000);
 
-% Each one in a train can be seen as a delta function
+% Each 1 in a train can be seen as a delta function
 % exploiting the sifting property of the delta function we can
 % instead place the corresponding action potential in its place
 % by convoluting the binary train with the action potentials
