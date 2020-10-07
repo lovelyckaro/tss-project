@@ -18,12 +18,10 @@ if not(isequal(transpose(find(trains(1,:))), cell2mat(firing_samples(1))))
 end
 
 realtrains = zeros(8, 200000);
-for row = 1:8 % For each train
-    for startindex = cell2mat(firing_samples(row)) % for each firing
-        for offset = 1:100 % Insert action potentials for that firing
-            realtrains(row, startindex + offset) = action_potentials(row, offset);
-        end
-    end
+
+% Does this work?
+for i = 1:8
+  realtrains(i,:) = conv(trains(i,:), action_potentials(i,:))
 end
 
 % Plotting the first action train
