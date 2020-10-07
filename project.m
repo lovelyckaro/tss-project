@@ -5,23 +5,17 @@ firing_samples = load("firing_samples.mat").firing_samples;
 % trains is a matrix where each row is a action train
 trains = zeros(8, 200000);
 for row = 1:8
-    for column = cell2mat(firing_samples(row))
-        trains(row, column) = 1;
-    end
-end
-
-% find finds indices of non-zero elements
-% run it on first train to find where we have placed our 1s
-% make sure that it is equal to the indices in firing_samples first row
-if not(isequal(transpose(find(trains(1,:))), cell2mat(firing_samples(1))))
-    disp("indices not equal");
+    trains(row, cell2mat(firing_samples(row))) = 1;
 end
 
 realtrains = zeros(8, 200000);
 
-% Does this work?
+% Each one in a train can be seen as a delta function
+% exploiting the sifting property of the delta function we can
+% instead place the corresponding action potential in its place
+% by convoluting the binary train with the action potentials
 for i = 1:8
-  realtrains(i,:) = conv(trains(i,:), action_potentials(i,:))
+  realtrains(i,:) = conv(trains(i,:), action_potentials(i,:), 'same');
 end
 
 % Plotting the first action train
@@ -86,6 +80,6 @@ xlabel(filteredAx, "Time, (s)")
 title(filteredAx, "Binary vectors, filtered using Hanning window")
 
 
-wvtool(filtered(1,:), filtered(2,:), filtered(3,:), filtered(4,:), filtered(5,:), filtered(6,:), filtered(7,:), filtered(8,:))
+%wvtool(filtered(1,:), filtered(2,:), filtered(3,:), filtered(4,:), filtered(5,:), filtered(6,:), filtered(7,:), filtered(8,:))
 
 hold off
