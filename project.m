@@ -42,9 +42,7 @@ title(axTenToTenHalf1, "Action train 1: 10s to 10.5s")
 emg = zeros(1, 200000);
 
 for row = 1:8
-    for column = 1:200000
-        emg(column) = emg(column) +  realtrains(row, column);
-    end
+    emg = emg + realtrains(row, :);
 end
 
 axEmg = nexttile;
